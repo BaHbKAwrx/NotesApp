@@ -8,25 +8,70 @@
 
 import UIKit
 
-class AllNotesViewController: UITableViewController {
+class AllNotesViewController: UITableViewController, NoteEditViewControllerDelegate {
+    
+    var notes = [Note]()
 
+    // MARK: - VC Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "AddNote" {
+            
+            if let controller = segue.destination as? NoteEditViewController {
+                controller.delegate = self
+            }
+            
+        } else if segue.identifier == "NoteDetail" {
+            
+            if let controller = segue.destination as? NoteEditViewController {
+                
+                if let cell = sender as? NoteTableViewCell, let indexPath = tableView.indexPath(for: cell) {
+                    controller.noteToEdit = notes[indexPath.row]
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    // MARK: - NoteEditVC delegates
+    
+    func noteEditViewController(_ controller: NoteEditViewController, didFinishAdding note: Note) {
+        
+        let newNoteIndex = 0
+        notes.insert(note, at: newNoteIndex)
+        
+        let indexPath = IndexPath(row: newNoteIndex, section: 0)
+        let indexPaths = [indexPath]
+        tableView.insertRows(at: indexPaths, with: .automatic)
+        
+        navigationController?.popViewController(animated: true)
+        
+    }
 
-    // MARK: - Table view data source
+    // MARK: - Table view data source and delegates
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return notes.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell", for: indexPath)
+        
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell", for: indexPath) as? NoteTableViewCell {
+            let note = notes[indexPath.row]
+            cell.configureWith(text: note.text, date: "\(note.date)")
+            return cell
+        } else {
+            return UITableViewCell()
+        }
 
-        // Configure the cell...
-
-        return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

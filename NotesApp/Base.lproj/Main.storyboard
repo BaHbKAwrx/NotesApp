@@ -55,7 +55,7 @@
                                 <connections>
                                     <outlet property="dateLabel" destination="kQs-FD-cRo" id="lez-Lt-VUJ"/>
                                     <outlet property="noteTextLabel" destination="aJq-wT-K8R" id="BEh-TN-cHN"/>
-                                    <segue destination="b0B-xu-NO2" kind="show" id="raP-xw-JV9"/>
+                                    <segue destination="b0B-xu-NO2" kind="show" identifier="NoteDetail" id="raP-xw-JV9"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -67,7 +67,7 @@
                     <navigationItem key="navigationItem" title="Заметки" id="A94-Ic-fVV">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Xea-EC-ypn">
                             <connections>
-                                <segue destination="b0B-xu-NO2" kind="show" id="eXk-9s-1Fz"/>
+                                <segue destination="b0B-xu-NO2" kind="show" identifier="AddNote" id="eXk-9s-1Fz"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -110,6 +110,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="noteTextView" destination="kj0-FS-CEx" id="Hdl-nE-HIQ"/>
+                        <outlet property="saveBarButton" destination="TXH-Dn-aZ3" id="0Ub-p8-sNz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EDV-kd-ysy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -136,6 +137,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="eXk-9s-1Fz"/>
+        <segue reference="raP-xw-JV9"/>
     </inferredMetricsTieBreakers>
 </document>

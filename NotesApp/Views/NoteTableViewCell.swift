@@ -13,4 +13,11 @@ class NoteTableViewCell: UITableViewCell {
     @IBOutlet weak var noteTextLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
 
+    func configureWith(text: String, date: String) {
+        
+        self.noteTextLabel.text = text
+        self.dateLabel.text = date
+        
+    }
+    
 }
