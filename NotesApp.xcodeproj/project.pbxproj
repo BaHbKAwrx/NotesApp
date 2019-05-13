@@ -8,22 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		620466A022899C4E003039CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6204669F22899C4E003039CD /* AppDelegate.swift */; };
-		620466A222899C4E003039CD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620466A122899C4E003039CD /* ViewController.swift */; };
 		620466A522899C4E003039CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 620466A322899C4E003039CD /* Main.storyboard */; };
 		620466A822899C4E003039CD /* NotesApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 620466A622899C4E003039CD /* NotesApp.xcdatamodeld */; };
 		620466AA22899C51003039CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 620466A922899C51003039CD /* Assets.xcassets */; };
 		620466AD22899C51003039CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 620466AB22899C51003039CD /* LaunchScreen.storyboard */; };
+		620466B522899FF1003039CD /* AllNotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620466B422899FF1003039CD /* AllNotesViewController.swift */; };
+		620466B72289A0CC003039CD /* NoteEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620466B62289A0CC003039CD /* NoteEditViewController.swift */; };
+		620466BA2289A231003039CD /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620466B92289A231003039CD /* Note.swift */; };
+		620466BD2289A6AD003039CD /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620466BC2289A6AD003039CD /* NoteTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6204669C22899C4E003039CD /* NotesApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotesApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6204669F22899C4E003039CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		620466A122899C4E003039CD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		620466A422899C4E003039CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		620466A722899C4E003039CD /* NotesApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NotesApp.xcdatamodel; sourceTree = "<group>"; };
 		620466A922899C51003039CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		620466AC22899C51003039CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		620466AE22899C51003039CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		620466B422899FF1003039CD /* AllNotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllNotesViewController.swift; sourceTree = "<group>"; };
+		620466B62289A0CC003039CD /* NoteEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditViewController.swift; sourceTree = "<group>"; };
+		620466B92289A231003039CD /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		620466BC2289A6AD003039CD /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +63,9 @@
 			isa = PBXGroup;
 			children = (
 				6204669F22899C4E003039CD /* AppDelegate.swift */,
-				620466A122899C4E003039CD /* ViewController.swift */,
+				620466BB2289A250003039CD /* Models */,
+				620466BE2289A6B7003039CD /* Views */,
+				620466B82289A0D7003039CD /* Controllers */,
 				620466A322899C4E003039CD /* Main.storyboard */,
 				620466A922899C51003039CD /* Assets.xcassets */,
 				620466AB22899C51003039CD /* LaunchScreen.storyboard */,
@@ -65,6 +73,31 @@
 				620466A622899C4E003039CD /* NotesApp.xcdatamodeld */,
 			);
 			path = NotesApp;
+			sourceTree = "<group>";
+		};
+		620466B82289A0D7003039CD /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				620466B422899FF1003039CD /* AllNotesViewController.swift */,
+				620466B62289A0CC003039CD /* NoteEditViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		620466BB2289A250003039CD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				620466B92289A231003039CD /* Note.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		620466BE2289A6B7003039CD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				620466BC2289A6AD003039CD /* NoteTableViewCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,9 +171,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				620466BA2289A231003039CD /* Note.swift in Sources */,
+				620466B522899FF1003039CD /* AllNotesViewController.swift in Sources */,
 				620466A822899C4E003039CD /* NotesApp.xcdatamodeld in Sources */,
-				620466A222899C4E003039CD /* ViewController.swift in Sources */,
+				620466B72289A0CC003039CD /* NoteEditViewController.swift in Sources */,
 				620466A022899C4E003039CD /* AppDelegate.swift in Sources */,
+				620466BD2289A6AD003039CD /* NoteTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +325,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C8SHT3568Q;
 				INFOPLIST_FILE = NotesApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -307,6 +344,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C8SHT3568Q;
 				INFOPLIST_FILE = NotesApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
