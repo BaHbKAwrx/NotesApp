@@ -8,9 +8,11 @@
 
 import UIKit
 
-class AllNotesViewController: UITableViewController, NoteEditViewControllerDelegate {
+final class AllNotesViewController: UITableViewController, NoteEditViewControllerDelegate {
     
-    var notes = [Note]()
+    // MARK: - Properties
+    
+    private var notes = [Note]()
 
     // MARK: - VC Lifecycle
     
@@ -45,12 +47,14 @@ class AllNotesViewController: UITableViewController, NoteEditViewControllerDeleg
     
     func noteEditViewController(_ controller: NoteEditViewController, didFinishAdding note: Note) {
         
-        let newNoteIndex = 0
-        notes.insert(note, at: newNoteIndex)
-        
-        let indexPath = IndexPath(row: newNoteIndex, section: 0)
-        let indexPaths = [indexPath]
-        tableView.insertRows(at: indexPaths, with: .automatic)
+        if !note.text.isEmpty {
+            let newNoteIndex = 0
+            notes.insert(note, at: newNoteIndex)
+            
+            let indexPath = IndexPath(row: newNoteIndex, section: 0)
+            let indexPaths = [indexPath]
+            tableView.insertRows(at: indexPaths, with: .automatic)
+        }
         
         navigationController?.popViewController(animated: true)
         
@@ -64,9 +68,9 @@ class AllNotesViewController: UITableViewController, NoteEditViewControllerDeleg
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell", for: indexPath) as? NoteTableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as? NoteTableViewCell {
             let note = notes[indexPath.row]
-            cell.configureWith(text: note.text.limitLenght(to: 60), date: note.date)
+            cell.configureWith(text: note.text.limitLenght(to: Constants.labelCharactersLimit), date: note.date)
             return cell
         } else {
             return UITableViewCell()
@@ -76,7 +80,7 @@ class AllNotesViewController: UITableViewController, NoteEditViewControllerDeleg
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return 80
+        return CGFloat(Constants.cellHeight)
         
     }
 
@@ -102,6 +106,7 @@ class AllNotesViewController: UITableViewController, NoteEditViewControllerDeleg
 
 }
 
+// Extension for limiting String lenght
 extension String {
     
     func limitLenght(to lenght: Int, trailing: String = "...") -> String {

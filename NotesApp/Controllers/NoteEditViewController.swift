@@ -14,14 +14,20 @@ protocol NoteEditViewControllerDelegate: class {
     
 }
 
-class NoteEditViewController: UIViewController {
+final class NoteEditViewController: UIViewController {
+    
+    // MARK: - Outlets
     
     @IBOutlet weak var noteTextView: UITextView!
     @IBOutlet weak var saveBarButton: UIBarButtonItem!
     
+    // MARK: Properties
+    
     var noteToEdit: Note?
     weak var delegate: NoteEditViewControllerDelegate?
 
+    // MARK: - VC Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,6 +41,8 @@ class NoteEditViewController: UIViewController {
         }
         
     }
+    
+    // MARK: - Button actions
     
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
         
