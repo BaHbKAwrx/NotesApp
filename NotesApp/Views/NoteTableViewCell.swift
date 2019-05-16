@@ -13,10 +13,13 @@ class NoteTableViewCell: UITableViewCell {
     @IBOutlet weak var noteTextLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
 
-    func configureWith(text: String, date: String) {
+    func configureWith(text: String, date: Date) {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yy  HH:mm"
         
         self.noteTextLabel.text = text
-        self.dateLabel.text = date
+        self.dateLabel.text = dateFormatter.string(from: date)
         
     }
     

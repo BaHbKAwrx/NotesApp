@@ -66,7 +66,7 @@ class AllNotesViewController: UITableViewController, NoteEditViewControllerDeleg
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell", for: indexPath) as? NoteTableViewCell {
             let note = notes[indexPath.row]
-            cell.configureWith(text: note.text, date: "\(note.date)")
+            cell.configureWith(text: note.text.limitLenght(to: 60), date: note.date)
             return cell
         } else {
             return UITableViewCell()
@@ -100,4 +100,14 @@ class AllNotesViewController: UITableViewController, NoteEditViewControllerDeleg
     }
     */
 
+}
+
+extension String {
+    
+    func limitLenght(to lenght: Int, trailing: String = "...") -> String {
+        
+        return (self.count > lenght) ? self.prefix(lenght) + trailing : self
+        
+    }
+    
 }
