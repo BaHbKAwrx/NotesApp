@@ -21,6 +21,7 @@ final class NoteEditViewController: UIViewController {
     
     @IBOutlet weak var noteTextView: UITextView!
     @IBOutlet weak var saveBarButton: UIBarButtonItem!
+    @IBOutlet weak var shareBarButton: UIBarButtonItem!
     
     // MARK: Properties
     
@@ -46,6 +47,8 @@ final class NoteEditViewController: UIViewController {
             noteTextView.text = note.text
             saveBarButton.title = ""
             saveBarButton.isEnabled = false
+            shareBarButton.isEnabled = true
+            shareBarButton.tintColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
         } else if let note = noteToEdit {
             noteTextView.text = note.text
             saveBarButton.title = "Редактировать"
@@ -70,5 +73,15 @@ final class NoteEditViewController: UIViewController {
         }
         
     }
+    
+    @IBAction func shareButtonTapped(_ sender: UIBarButtonItem) {
+        
+        guard let note = noteToPreview else { return }
+        let itemsToShare = [note.text]
+        let activityViewController = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
+        present(activityViewController, animated: true, completion: nil)
+        
+    }
+    
     
 }

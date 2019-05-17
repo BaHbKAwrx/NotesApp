@@ -43,7 +43,6 @@
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="aJq-wT-K8R" firstAttribute="top" secondItem="kQs-FD-cRo" secondAttribute="bottom" constant="2" id="9uu-Q2-ksV"/>
                                         <constraint firstItem="kQs-FD-cRo" firstAttribute="leading" secondItem="k98-aa-7ju" secondAttribute="leading" constant="16" id="BP8-Z8-dke"/>
                                         <constraint firstAttribute="trailing" secondItem="aJq-wT-K8R" secondAttribute="trailing" constant="10" id="GIp-f3-ybe"/>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="kQs-FD-cRo" secondAttribute="trailing" constant="20" symbolic="YES" id="aSW-7e-Myb"/>
@@ -104,15 +103,24 @@
                         <viewLayoutGuide key="safeArea" id="Tay-P1-Rm2"/>
                     </view>
                     <navigationItem key="navigationItem" id="xLv-n0-XVZ">
-                        <barButtonItem key="rightBarButtonItem" title="Сохранить" id="TXH-Dn-aZ3">
-                            <connections>
-                                <action selector="saveButtonTapped:" destination="b0B-xu-NO2" id="fAR-m7-KuP"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Сохранить" id="TXH-Dn-aZ3">
+                                <connections>
+                                    <action selector="saveButtonTapped:" destination="b0B-xu-NO2" id="fAR-m7-KuP"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem enabled="NO" systemItem="action" id="25u-SO-wzP">
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="shareButtonTapped:" destination="b0B-xu-NO2" id="PFI-w5-Nni"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="noteTextView" destination="kj0-FS-CEx" id="Hdl-nE-HIQ"/>
                         <outlet property="saveBarButton" destination="TXH-Dn-aZ3" id="0Ub-p8-sNz"/>
+                        <outlet property="shareBarButton" destination="25u-SO-wzP" id="fve-y0-2lb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EDV-kd-ysy" userLabel="First Responder" sceneMemberID="firstResponder"/>
