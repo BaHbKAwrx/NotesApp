@@ -12,8 +12,7 @@ final class AllNotesViewController: UITableViewController, NoteEditViewControlle
     
     // MARK: - Properties
     
-    private var notes = [Note]()
-    var dataModel = DataModel()
+    private var dataModel = DataModel()
 
     // MARK: - VC Lifecycle
     
@@ -34,9 +33,16 @@ final class AllNotesViewController: UITableViewController, NoteEditViewControlle
             if let controller = segue.destination as? NoteEditViewController {
                 
                 if let cell = sender as? NoteTableViewCell, let indexPath = tableView.indexPath(for: cell) {
-                    controller.noteToEdit = dataModel.notes[indexPath.row]
+                    controller.noteToPreview = dataModel.notes[indexPath.row]
                 }
                 
+            }
+            
+        } else if segue.identifier == "EditNote" {
+            
+            if let controller = segue.destination as? NoteEditViewController {
+                controller.noteToEdit = sender as? Note
+                controller.delegate = self
             }
             
         }
@@ -57,6 +63,23 @@ final class AllNotesViewController: UITableViewController, NoteEditViewControlle
             
             dataModel.saveNotes()
         }
+        
+        navigationController?.popViewController(animated: true)
+        
+    }
+    
+    func noteEditViewController(_ controller: NoteEditViewController, didFinishEditing note: Note, withChanges: Bool) {
+        
+        if withChanges {
+            note.date = Date()
+        }
+        
+        if let index = dataModel.notes.firstIndex(where: {$0 === note}) {
+            let indexPath = IndexPath(row: index, section: 0)
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
+        
+        dataModel.saveNotes()
         
         navigationController?.popViewController(animated: true)
         
@@ -83,6 +106,17 @@ final class AllNotesViewController: UITableViewController, NoteEditViewControlle
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         return CGFloat(Constants.cellHeight)
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let editAction = UITableViewRowAction(style: .default, title: "Edit") {[weak self] (rowAction, indexPath) in
+            let note = self?.dataModel.notes[indexPath.row]
+            self?.performSegue(withIdentifier: "EditNote", sender: note)
+        }
+        editAction.backgroundColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
+        return [editAction]
         
     }
 

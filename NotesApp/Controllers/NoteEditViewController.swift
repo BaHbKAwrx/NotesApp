@@ -11,6 +11,7 @@ import UIKit
 protocol NoteEditViewControllerDelegate: class {
     
     func noteEditViewController(_ controller: NoteEditViewController, didFinishAdding note: Note)
+    func noteEditViewController(_ controller: NoteEditViewController, didFinishEditing note: Note, withChanges: Bool)
     
 }
 
@@ -24,18 +25,31 @@ final class NoteEditViewController: UIViewController {
     // MARK: Properties
     
     var noteToEdit: Note?
+    var noteToPreview: Note?
     weak var delegate: NoteEditViewControllerDelegate?
 
     // MARK: - VC Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        if let note = noteToEdit {
+        
+        setupUI()
+        
+    }
+    
+    // MARK: - Methods
+    
+    private func setupUI() {
+        
+        if let note = noteToPreview {
             noteTextView.isEditable = false
             noteTextView.text = note.text
             saveBarButton.title = ""
             saveBarButton.isEnabled = false
+        } else if let note = noteToEdit {
+            noteTextView.text = note.text
+            saveBarButton.title = "Редактировать"
+            noteTextView.becomeFirstResponder()
         } else {
             noteTextView.becomeFirstResponder()
         }
@@ -46,8 +60,14 @@ final class NoteEditViewController: UIViewController {
     
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
         
-        let note = Note(text: noteTextView.text)
-        delegate?.noteEditViewController(self, didFinishAdding: note)
+        if let note = noteToEdit {
+            let wasChanged = note.text != noteTextView.text
+            note.text = noteTextView.text
+            delegate?.noteEditViewController(self, didFinishEditing: note, withChanges: wasChanged)
+        } else {
+            let note = Note(text: noteTextView.text)
+            delegate?.noteEditViewController(self, didFinishAdding: note)
+        }
         
     }
     

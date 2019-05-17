@@ -71,6 +71,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="b0B-xu-NO2" kind="show" identifier="EditNote" id="4fL-jm-Cxk"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jnV-7x-f2S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
