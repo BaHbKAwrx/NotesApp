@@ -17,6 +17,7 @@
 		620466BA2289A231003039CD /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620466B92289A231003039CD /* Note.swift */; };
 		620466BD2289A6AD003039CD /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620466BC2289A6AD003039CD /* NoteTableViewCell.swift */; };
 		620466C0228DD723003039CD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620466BF228DD723003039CD /* Constants.swift */; };
+		620466C4228ED6E9003039CD /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620466C3228ED6E9003039CD /* DataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		620466B92289A231003039CD /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		620466BC2289A6AD003039CD /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 		620466BF228DD723003039CD /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		620466C3228ED6E9003039CD /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				620466B92289A231003039CD /* Note.swift */,
+				620466C3228ED6E9003039CD /* DataModel.swift */,
 				620466BF228DD723003039CD /* Constants.swift */,
 			);
 			path = Models;
@@ -179,6 +182,7 @@
 				620466A822899C4E003039CD /* NotesApp.xcdatamodeld in Sources */,
 				620466B72289A0CC003039CD /* NoteEditViewController.swift in Sources */,
 				620466C0228DD723003039CD /* Constants.swift in Sources */,
+				620466C4228ED6E9003039CD /* DataModel.swift in Sources */,
 				620466A022899C4E003039CD /* AppDelegate.swift in Sources */,
 				620466BD2289A6AD003039CD /* NoteTableViewCell.swift in Sources */,
 			);

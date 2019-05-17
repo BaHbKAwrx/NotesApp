@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Note {
+class Note: Codable {
     
     var text: String
     var date = Date()

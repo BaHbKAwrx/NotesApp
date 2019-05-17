@@ -13,12 +13,12 @@ final class AllNotesViewController: UITableViewController, NoteEditViewControlle
     // MARK: - Properties
     
     private var notes = [Note]()
+    var dataModel = DataModel()
 
     // MARK: - VC Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -34,7 +34,7 @@ final class AllNotesViewController: UITableViewController, NoteEditViewControlle
             if let controller = segue.destination as? NoteEditViewController {
                 
                 if let cell = sender as? NoteTableViewCell, let indexPath = tableView.indexPath(for: cell) {
-                    controller.noteToEdit = notes[indexPath.row]
+                    controller.noteToEdit = dataModel.notes[indexPath.row]
                 }
                 
             }
@@ -49,11 +49,13 @@ final class AllNotesViewController: UITableViewController, NoteEditViewControlle
         
         if !note.text.isEmpty {
             let newNoteIndex = 0
-            notes.insert(note, at: newNoteIndex)
+            dataModel.notes.insert(note, at: newNoteIndex)
             
             let indexPath = IndexPath(row: newNoteIndex, section: 0)
             let indexPaths = [indexPath]
             tableView.insertRows(at: indexPaths, with: .automatic)
+            
+            dataModel.saveNotes()
         }
         
         navigationController?.popViewController(animated: true)
@@ -63,13 +65,13 @@ final class AllNotesViewController: UITableViewController, NoteEditViewControlle
     // MARK: - Table view data source and delegates
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return notes.count
+        return dataModel.notes.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as? NoteTableViewCell {
-            let note = notes[indexPath.row]
+            let note = dataModel.notes[indexPath.row]
             cell.configureWith(text: note.text.limitLenght(to: Constants.labelCharactersLimit), date: note.date)
             return cell
         } else {
