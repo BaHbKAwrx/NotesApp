@@ -127,7 +127,28 @@ final class AllNotesViewController: UITableViewController, NoteEditViewControlle
         return [deleteAction,editAction]
         
     }
-
+    
+    // MARK: - Button actions
+    
+    @IBAction func sortButtonTapped(_ sender: UIBarButtonItem) {
+        
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let descendingAlertAction = UIAlertAction(title: "От новых к старым", style: .default) {[weak self] (action) in
+            self?.dataModel.sortNotes(with: .descending)
+            self?.tableView.reloadData()
+        }
+        let ascendingAlertAction = UIAlertAction(title: "От старых к новым", style: .default) {[weak self] (action) in
+            self?.dataModel.sortNotes(with: .ascending)
+            self?.tableView.reloadData()
+        }
+        let cancelAlertAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+        alertController.addAction(descendingAlertAction)
+        alertController.addAction(ascendingAlertAction)
+        alertController.addAction(cancelAlertAction)
+        present(alertController, animated: true, completion: nil)
+        
+    }
+    
 }
 
 // Extension for limiting String lenght

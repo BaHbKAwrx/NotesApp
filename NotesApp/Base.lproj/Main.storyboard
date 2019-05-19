@@ -64,11 +64,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Заметки" id="A94-Ic-fVV">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Xea-EC-ypn">
-                            <connections>
-                                <segue destination="b0B-xu-NO2" kind="show" identifier="AddNote" id="eXk-9s-1Fz"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="Xea-EC-ypn">
+                                <connections>
+                                    <segue destination="b0B-xu-NO2" kind="show" identifier="AddNote" id="eXk-9s-1Fz"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="icons8-generic_sorting" id="afx-aQ-ubB">
+                                <connections>
+                                    <action selector="sortButtonTapped:" destination="eRZ-pg-6fK" id="poL-cX-vMe"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <segue destination="b0B-xu-NO2" kind="show" identifier="EditNote" id="4fL-jm-Cxk"/>
@@ -146,6 +153,9 @@
             <point key="canvasLocation" x="138.40000000000001" y="-46.326836581709152"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icons8-generic_sorting" width="50" height="50"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="raP-xw-JV9"/>
     </inferredMetricsTieBreakers>

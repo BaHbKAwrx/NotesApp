@@ -14,6 +14,24 @@ struct DataModel {
     
     init() {
         loadNotes()
+        sortNotes(with: .descending)
+    }
+    
+    // MARK: - Sorting methods
+    
+    mutating func sortNotes(with order: SortOrder) {
+        
+        switch order {
+        case .ascending:
+            notes.sort { (note1, note2) -> Bool in
+                return note1.date.compare(note2.date) == .orderedAscending
+            }
+        case .descending:
+            notes.sort { (note1, note2) -> Bool in
+                return note1.date.compare(note2.date) == .orderedDescending
+            }
+        }
+        
     }
     
     // MARK: - Data saving methods
