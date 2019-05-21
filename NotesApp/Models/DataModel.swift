@@ -11,6 +11,7 @@ import Foundation
 struct DataModel {
     
     var notes = [Note]()
+    var filteredNotes = [Note]()
     
     init() {
         loadNotes()

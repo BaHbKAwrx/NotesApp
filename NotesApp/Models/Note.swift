@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Note: Codable {
+class Note: NSObject, Codable {
     
     var text: String
     var date = Date()

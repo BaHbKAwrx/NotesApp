@@ -12,12 +12,16 @@ final class AllNotesViewController: UITableViewController, NoteEditViewControlle
     
     // MARK: - Properties
     
+    var searchController = UISearchController(searchResultsController: nil)
     private var dataModel = DataModel()
 
     // MARK: - VC Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupSearchController()
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -33,7 +37,7 @@ final class AllNotesViewController: UITableViewController, NoteEditViewControlle
             if let controller = segue.destination as? NoteEditViewController {
                 
                 if let cell = sender as? NoteTableViewCell, let indexPath = tableView.indexPath(for: cell) {
-                    controller.noteToPreview = dataModel.notes[indexPath.row]
+                    controller.noteToPreview = noteToDisplayAt(indexPath: indexPath)
                 }
                 
             }
@@ -46,6 +50,20 @@ final class AllNotesViewController: UITableViewController, NoteEditViewControlle
             }
             
         }
+        
+    }
+    
+    // MARK: - Method for setup searchController
+    
+    private func setupSearchController() {
+        
+        searchController.searchResultsUpdater = self
+        //searchController.obscuresBackgroundDuringPresentation - same as bottom one
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.searchBarStyle = .minimal
+        navigationItem.searchController = searchController
+        // To hide searchBar on next VC
+        definesPresentationContext = true
         
     }
     
@@ -74,10 +92,11 @@ final class AllNotesViewController: UITableViewController, NoteEditViewControlle
             note.date = Date()
         }
         
-        if let index = dataModel.notes.firstIndex(where: {$0 === note}) {
-            let indexPath = IndexPath(row: index, section: 0)
-            tableView.reloadRows(at: [indexPath], with: .automatic)
-        }
+        tableView.reloadData()
+//        if let index = dataModel.notes.firstIndex(where: {$0 === note}) {
+//            let indexPath = IndexPath(row: index, section: 0)
+//            tableView.reloadRows(at: [indexPath], with: .automatic)
+//        }
         
         dataModel.saveNotes()
         
@@ -88,13 +107,17 @@ final class AllNotesViewController: UITableViewController, NoteEditViewControlle
     // MARK: - Table view data source and delegates
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataModel.notes.count
+        if searchController.isActive && searchController.searchBar.text != "" {
+            return dataModel.filteredNotes.count
+        } else {
+            return dataModel.notes.count
+        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as? NoteTableViewCell {
-            let note = dataModel.notes[indexPath.row]
+            let note = noteToDisplayAt(indexPath: indexPath)
             cell.configureWith(text: note.text.limitLenght(to: Constants.labelCharactersLimit), date: note.date)
             return cell
         } else {
@@ -112,12 +135,21 @@ final class AllNotesViewController: UITableViewController, NoteEditViewControlle
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let editAction = UITableViewRowAction(style: .default, title: "Edit") {[weak self] (rowAction, indexPath) in
-            let note = self?.dataModel.notes[indexPath.row]
+            let note = self?.noteToDisplayAt(indexPath: indexPath)
             self?.performSegue(withIdentifier: "EditNote", sender: note)
         }
         
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") {[weak self] (rowAction, indexPath) in
-            self?.dataModel.notes.remove(at: indexPath.row)
+            if (self?.searchController.isActive)! && self?.searchController.searchBar.text != "" {
+                if let deletedItem = self?.dataModel.filteredNotes.remove(at: indexPath.row) {
+                    if let index = self?.dataModel.notes.index(of: deletedItem) {
+                        self?.dataModel.notes.remove(at: index)
+                    }
+                }
+            } else {
+                self?.dataModel.notes.remove(at: indexPath.row)
+            }
+            //self?.dataModel.notes.remove(at: indexPath.row)
             let indexPaths = [indexPath]
             tableView.deleteRows(at: indexPaths, with: .automatic)
             self?.dataModel.saveNotes()
@@ -147,6 +179,39 @@ final class AllNotesViewController: UITableViewController, NoteEditViewControlle
         alertController.addAction(cancelAlertAction)
         present(alertController, animated: true, completion: nil)
         
+    }
+    
+    // MARK: - Methods for filtering
+    
+    func filterContentFor(searchText text: String) {
+        
+        dataModel.filteredNotes = dataModel.notes.filter { (note) -> Bool in
+            return note.text.lowercased().contains(text.lowercased())
+        }
+        
+    }
+    
+    func noteToDisplayAt(indexPath: IndexPath) -> Note {
+        
+        let note: Note
+        if searchController.isActive && searchController.searchBar.text != "" {
+            note = dataModel.filteredNotes[indexPath.row]
+        } else {
+            note = dataModel.notes[indexPath.row]
+        }
+        return note
+        
+    }
+    
+}
+
+// Extension for searchController
+extension AllNotesViewController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else { return }
+        filterContentFor(searchText: text)
+        tableView.reloadData()
     }
     
 }
