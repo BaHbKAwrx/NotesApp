@@ -10,8 +10,8 @@ import UIKit
 
 class NoteTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var noteTextLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet private weak var noteTextLabel: UILabel!
+    @IBOutlet private weak var dateLabel: UILabel!
 
     func configureWith(text: String, date: Date) {
         

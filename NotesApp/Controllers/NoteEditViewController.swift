@@ -19,9 +19,9 @@ final class NoteEditViewController: UIViewController {
     
     // MARK: - Outlets
     
-    @IBOutlet weak var noteTextView: UITextView!
-    @IBOutlet weak var saveBarButton: UIBarButtonItem!
-    @IBOutlet weak var shareBarButton: UIBarButtonItem!
+    @IBOutlet private weak var noteTextView: UITextView!
+    @IBOutlet private weak var saveBarButton: UIBarButtonItem!
+    @IBOutlet private weak var shareBarButton: UIBarButtonItem!
     
     // MARK: Properties
     

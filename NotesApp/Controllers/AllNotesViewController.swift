@@ -12,7 +12,7 @@ final class AllNotesViewController: UITableViewController, NoteEditViewControlle
     
     // MARK: - Properties
     
-    var searchController = UISearchController(searchResultsController: nil)
+    private var searchController = UISearchController(searchResultsController: nil)
     private var dataModel = DataModel()
 
     // MARK: - VC Lifecycle
@@ -93,10 +93,6 @@ final class AllNotesViewController: UITableViewController, NoteEditViewControlle
         }
         
         tableView.reloadData()
-//        if let index = dataModel.notes.firstIndex(where: {$0 === note}) {
-//            let indexPath = IndexPath(row: index, section: 0)
-//            tableView.reloadRows(at: [indexPath], with: .automatic)
-//        }
         
         dataModel.saveNotes()
         
@@ -149,7 +145,6 @@ final class AllNotesViewController: UITableViewController, NoteEditViewControlle
             } else {
                 self?.dataModel.notes.remove(at: indexPath.row)
             }
-            //self?.dataModel.notes.remove(at: indexPath.row)
             let indexPaths = [indexPath]
             tableView.deleteRows(at: indexPaths, with: .automatic)
             self?.dataModel.saveNotes()
@@ -183,15 +178,13 @@ final class AllNotesViewController: UITableViewController, NoteEditViewControlle
     
     // MARK: - Methods for filtering
     
-    func filterContentFor(searchText text: String) {
+    private func filterContentFor(searchText text: String) {
         
-        dataModel.filteredNotes = dataModel.notes.filter { (note) -> Bool in
-            return note.text.lowercased().contains(text.lowercased())
-        }
+        dataModel.filteredNotes = dataModel.notes.filter { $0.text.lowercased().contains(text.lowercased()) }
         
     }
     
-    func noteToDisplayAt(indexPath: IndexPath) -> Note {
+    private func noteToDisplayAt(indexPath: IndexPath) -> Note {
         
         let note: Note
         if searchController.isActive && searchController.searchBar.text != "" {

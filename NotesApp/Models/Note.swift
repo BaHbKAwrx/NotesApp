@@ -8,15 +8,13 @@
 
 import Foundation
 
-class Note: NSObject, Codable {
+final class Note: NSObject, Codable {
     
     var text: String
     var date = Date()
     
     init(text: String) {
-        
         self.text = text
-        
     }
     
 }

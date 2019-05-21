@@ -24,13 +24,9 @@ struct DataModel {
         
         switch order {
         case .ascending:
-            notes.sort { (note1, note2) -> Bool in
-                return note1.date.compare(note2.date) == .orderedAscending
-            }
+            notes.sort { $0.date.compare($1.date) == .orderedAscending }
         case .descending:
-            notes.sort { (note1, note2) -> Bool in
-                return note1.date.compare(note2.date) == .orderedDescending
-            }
+            notes.sort { $0.date.compare($1.date) == .orderedDescending }
         }
         
     }
